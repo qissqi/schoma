@@ -25,10 +25,11 @@
       <a-col flex="1"></a-col>
       <a-col flex="0">
         <div class="login-form" style="margin-top: 150px;">
-          <a-form :model="user_info_login" @submit="login">
+          <a-form :model="user_login_info" @submit="login">
 
             <a-input class="login-form-item login-form-input"
-              v-model="user_info_login.id"
+              v-model="user_login_info.user_id"
+              aria-required="true"
               placeholder="请输入学号 / 职工号">
               <template #prefix>
                 <icon-user />
@@ -36,7 +37,8 @@
             </a-input>
 
             <a-input class="login-form-item login-form-input"
-              v-model="user_info_login.passwd" type="password"
+              v-model="user_login_info.passwd" type="password"
+              aria-required="true"
               placeholder="请输入密码">
               <template #prefix>
                 <icon-lock />
@@ -51,7 +53,7 @@
             
 
             <a-link class="forgot-passwd-link"
-              :hoverable="false" icon disabled>
+              :hoverable="false" icon>
               忘记密码 / 账号申诉
             </a-link>
           </a-form>
@@ -64,11 +66,13 @@
 </template>
   
 <script>
+import tmpl_api from "@/api/tmpl"
+
 export default {
   data() {
     return {
-      user_info_login: {
-        id: "",
+      user_login_info: {
+        user_id: "",
         passwd: ""
       },
       bkdg_images: [
@@ -76,12 +80,20 @@ export default {
         'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp',
         'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/0265a04fddbd77a19602a15d9d55d797.png~tplv-uwbnlip3yd-webp.webp',
       ]
-    };
+    }
   },
   methods: {
     login() {
-      console.log(this.user_info_login)
 
+      /* 测试 */
+      tmpl_api.hello_world()
+      .then(resp => {
+        console.log(resp)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      
     }
   }
 }
@@ -115,4 +127,5 @@ export default {
   color: var(--color-text-3);
   font-size: 12px;
 }
+
 </style>
