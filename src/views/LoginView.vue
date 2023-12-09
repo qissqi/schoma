@@ -13,17 +13,10 @@
   </div>
 
   <div id="main">
-
-    <!-- <div style="display: flex; justify-content: flex-end; margin-right: 100px;">
-      <a-link :hoverable="false" icon
-        href="https://www.guet.edu.cn/">
-        学校官网
-      </a-link>
-    </div> -->
-
     <a-row>
       <a-col flex="1"></a-col>
       <a-col flex="0">
+
         <div class="login-form" style="margin-top: 150px;">
           <a-form :model="user_login_info" @submit="login">
 
@@ -50,7 +43,6 @@
               html-type="submit">
               登录
             </a-button>
-            
 
             <a-link class="forgot-passwd-link"
               :hoverable="false" icon>
@@ -58,6 +50,27 @@
             </a-link>
           </a-form>
         </div>
+
+
+        <div style="
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 14px;
+          width: 100%;
+          background-color: rgba(255, 255, 255, 0.85);
+          border-radius: var(--border-radius-small);">
+
+          <a-link :hoverable="false" icon
+            href="https://www.guet.edu.cn/"
+            style="
+            margin-top: 2px;
+            margin-bottom: 2px;
+            margin-right: 6px;
+            font-size: 12px;">
+            学校官网
+          </a-link>
+        </div>
+
       </a-col>
       <a-col flex="1"></a-col>
     </a-row>
@@ -111,7 +124,7 @@ export default {
 .login-form {
   padding: 14px;
   width: 260px;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: var(--border-radius-small);
 }
 .login-form-item {
