@@ -98,7 +98,6 @@ export default {
   methods: {
     login() {
 
-      /* 测试 */
       tmpl_api.hello_world()
       .then(resp => {
         console.log(resp)
