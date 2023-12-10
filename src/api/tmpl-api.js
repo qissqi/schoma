@@ -1,4 +1,4 @@
-import req from "@/utils/request"
+import req from "@/utils/http-req"
 
 export default {
   hello_world() {

@@ -1,4 +1,5 @@
 <template>
+  <!-- 背景轮播图 -->
   <div style="
     width:100%;     height:100%;
     position:fixed; z-index: -1;">
@@ -17,11 +18,12 @@
       <a-col flex="1"></a-col>
       <a-col flex="0">
 
+        <!-- 登录的form表单 -->
         <div class="login-form" style="margin-top: 150px;">
-          <a-form :model="user_login_info" @submit="login">
+          <a-form :model="user_login_DTO" @submit="login">
 
             <a-input class="login-form-item login-form-input"
-              v-model="user_login_info.user_id"
+              v-model="user_login_DTO.user_id"
               aria-required="true"
               placeholder="请输入学号 / 职工号">
               <template #prefix>
@@ -30,7 +32,7 @@
             </a-input>
 
             <a-input class="login-form-item login-form-input"
-              v-model="user_login_info.passwd" type="password"
+              v-model="user_login_DTO.passwd" type="password"
               aria-required="true"
               placeholder="请输入密码">
               <template #prefix>
@@ -51,7 +53,7 @@
           </a-form>
         </div>
 
-
+        <!-- 学校官网链接 -->
         <div style="
           display: flex;
           justify-content: flex-end;
@@ -79,12 +81,12 @@
 </template>
   
 <script>
-import tmpl_api from "@/api/tmpl"
+import user_api from "@/api/user-api"
 
 export default {
   data() {
     return {
-      user_login_info: {
+      user_login_DTO: {
         user_id: "",
         passwd: ""
       },
@@ -98,14 +100,14 @@ export default {
   methods: {
     login() {
 
-      tmpl_api.hello_world()
+      user_api.login(this.user_login_DTO)
       .then(resp => {
         console.log(resp)
       })
       .catch(err => {
-        console.log(err)
+        console.error(err)
       })
-      
+
     }
   }
 }
