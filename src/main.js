@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-/* INTRO 2023-12-08: 使用 Arco Design UI 库，官方网址 https://arco.design/themes/home */
+/* INTRO 2023-12-08: 使用 Arco Design UI 库 https://arco.design/vue */
 import ArcoVue from '@arco-design/web-vue'
 import ArcoVueIcon from '@arco-design/web-vue/es/icon'
 import '@arco-design/web-vue/dist/arco.css'

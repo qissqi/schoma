@@ -40,8 +40,11 @@
               </template>
             </a-input>
 
+            <span class="login_err_tip"> {{ login_err_msg }} </span>
+
             <a-button class="login-form-item"
               type="primary" long
+              :loading="login_btn_loading"
               html-type="submit">
               登录
             </a-button>
@@ -90,6 +93,8 @@ export default {
         user_id: "",
         passwd: ""
       },
+      login_err_msg: "",
+      login_btn_loading: false,
       bkdg_images: [
         'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/cd7a1aaea8e1c5e3d26fe2591e561798.png~tplv-uwbnlip3yd-webp.webp',
         'https://p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/6480dbc69be1b5de95010289787d64f1.png~tplv-uwbnlip3yd-webp.webp',
@@ -98,16 +103,33 @@ export default {
     }
   },
   methods: {
+    set_login_err_msg(msg) {
+      this.login_err_msg = msg
+    },
+    set_is_login_btn_loading(is_loading) {
+      this.login_btn_loading = is_loading
+    },
+
     login() {
+      this.set_login_err_msg("")
+      this.set_is_login_btn_loading(true)
 
       user_api.login(this.user_login_DTO)
       .then(resp => {
+        this.set_is_login_btn_loading(false)
         console.log(resp)
+
+        if (resp.status_code != 200) {
+          this.set_login_err_msg("账号不存在，或密码错误")
+        }
+        else {
+          this.$message("OK")
+        }
       })
       .catch(err => {
+        this.set_is_login_btn_loading(false)
         console.error(err)
       })
-
     }
   }
 }
@@ -135,6 +157,12 @@ export default {
 
 .login-form-input {
   color: #000;
+}
+
+.login_err_tip {
+  padding-left: 7px;
+  color: red;
+  font-size: 12px;
 }
 
 .forgot-passwd-link {
