@@ -23,7 +23,7 @@
           <a-form :model="user_login_DTO" @submit="login">
 
             <a-input class="login-form-item login-form-input"
-              v-model="user_login_DTO.user_id"
+              v-model="user_id"
               aria-required="true"
               placeholder="请输入学号 / 职工号">
               <template #prefix>
@@ -32,7 +32,7 @@
             </a-input>
 
             <a-input class="login-form-item login-form-input"
-              v-model="user_login_DTO.passwd" type="password"
+              v-model="passwd" type="password"
               aria-required="true"
               placeholder="请输入密码">
               <template #prefix>
@@ -89,10 +89,8 @@ import user_api from "@/api/user-api"
 export default {
   data() {
     return {
-      user_login_DTO: {
-        user_id: "",
-        passwd: ""
-      },
+      user_id: "",
+      passwd: "",
       login_err_msg: "",
       login_btn_loading: false,
       bkdg_images: [
@@ -114,16 +112,31 @@ export default {
       this.set_login_err_msg("")
       this.set_is_login_btn_loading(true)
 
-      user_api.login(this.user_login_DTO)
+      user_api.login({
+        user_id: this.user_id,
+        passwd:  this.passwd
+      })
       .then(resp => {
         this.set_is_login_btn_loading(false)
-        console.log(resp)
-
+        
         if (resp.status_code != 200) {
-          this.set_login_err_msg("账号不存在，或密码错误")
+          this.set_login_err_msg(resp.msg)
+          return
+        }
+
+        if (resp.data.role === "student") {
+          this.$message.info("student")
+        }
+        else if (resp.data.role === "teacher") {
+          this.$message.info("teacher")
+        }
+        else if (resp.data.role === "admin") {
+          this.$message.info("admin")
         }
         else {
-          this.$message("OK")
+          /* assert false */
+          this.set_login_err_msg("无法登录，未知的用户身份")
+          return
         }
       })
       .catch(err => {
@@ -160,7 +173,8 @@ export default {
 }
 
 .login_err_tip {
-  padding-left: 7px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: red;
   font-size: 12px;
 }
