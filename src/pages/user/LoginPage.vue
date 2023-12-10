@@ -84,7 +84,8 @@
 </template>
   
 <script>
-import user_api from "@/api/user-api"
+/* NOTE 2023-12-08: @ 是 /src 的化名 */
+import user_api from "@/api/user/user-api"
 
 export default {
   data() {
@@ -124,14 +125,15 @@ export default {
           return
         }
 
+        console.log(resp)
         if (resp.data.role === "student") {
-          this.$message.info("student")
+          this.$router.push({ path: '/student/home', query: { user_id: resp.data.user_id } })
         }
         else if (resp.data.role === "teacher") {
-          this.$message.info("teacher")
+          this.$router.push({ path: '/teacher/home', query: { user_id: resp.data.user_id } })
         }
         else if (resp.data.role === "admin") {
-          this.$message.info("admin")
+          this.$router.push({ path: '/admin/home', query: { user_id: resp.data.user_id } })
         }
         else {
           /* assert false */
