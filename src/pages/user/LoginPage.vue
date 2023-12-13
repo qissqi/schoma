@@ -1,6 +1,6 @@
 <template>
   <!-- 原神背景视频 -->
-  <div style="width: 100%; height: 100%; position: fixed; z-index: -1;">
+  <div style="width: 100%; height: 100vh; position: fixed; z-index: -1;">
     <video src="https://www.yuanshen.com/medias/bg.3e78e808.mp4"
         preload="auto"
         poster="images/poster.948ee40e.jpg"
@@ -101,7 +101,9 @@ export default {
       .then(resp => {
         this.set_is_login_btn_loading(false)
 
-        if (resp.status_code != 200) {
+        console.log(resp) /* TEMP */
+
+        if (resp.status != 200) {
           this.set_login_err_msg(resp.msg)
           this.clear_passwd()
           return
