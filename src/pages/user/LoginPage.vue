@@ -1,12 +1,12 @@
 <template>
   <!-- 原神背景视频 -->
   <div style="width: 100%; height: 100vh; position: fixed; z-index: -1;">
-    <video src="https://www.yuanshen.com/medias/bg.3e78e808.mp4"
-        preload="auto"
-        poster="images/poster.948ee40e.jpg"
-        muted="muted" loop="loop" autoplay="autoplay"
-        style="width: 100%;">
-      </video>
+    <!-- https://www.yuanshen.com/medias/bg.3e78e808.mp4 -->
+    <video src="@/static/media/login_bkgd.mp4"
+      preload="auto"
+      muted="muted" loop="loop" autoplay="autoplay"
+      style="width: 100%;">
+    </video>
   </div>
 
   <a-row id="main">
